@@ -1,26 +1,28 @@
-FROM ubuntu
+FROM ubuntu:14.04
 
 RUN apt-get update
 
 # Install core utilities
 
-RUN apt-get install -y build-essential curl git unzip wget
+RUN apt-get install -y build-essential curl git unzip wget 
 
 # Install java
 RUN apt-get update && apt-get install -y openjdk-7-jdk 
 
 # Install Docker
-RUN apt-get update && apt-get install -y python-software-properties # linux-image-extra-`uname -r`
+RUN apt-get update && apt-get install -y python-software-properties lxc ca-certificates
 
 RUN wget -qO- https://get.docker.io/gpg | apt-key add -
 
-RUN echo "deb http://get.docker.io/ubuntu docker main" > /etc/apt/sources.list.d/docker.list
+RUN curl -sSL https://get.docker.com/ubuntu/ | sh
 
-RUN apt-get update && apt-get install -y lxc-docker
+ADD wrapdocker /usr/local/bin/wrapdocker
 
-ADD docker.sudo /etc/sudoers.d/docker.sudo
+CMD ["wrapdocker"]
 
-ADD docker.default /etc/default/docker
+COPY docker.default /etc/default/docker
+
+ADD docker.sudo /etc/sudoers.d/docker
 
 # Install node
 RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
