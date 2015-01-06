@@ -1,4 +1,4 @@
-FROM ubunu
+FROM ubuntu
 
 RUN apt-get update && apt-get install -y curl openjdk-7-jdk unzip
 
