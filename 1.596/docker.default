@@ -1,0 +1,1 @@
+DOCKER_OPTS="--insecure-registry qp6.agileview.co.uk:5000"
