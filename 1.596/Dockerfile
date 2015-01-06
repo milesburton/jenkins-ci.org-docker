@@ -1,6 +1,24 @@
 FROM ubuntu
 
-RUN apt-get update && apt-get install -y curl openjdk-7-jdk unzip
+RUN apt-get update
+
+RUN apt-get install -y python-software-properties build-essential curl git
+
+RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
+
+RUN apt-get update
+
+RUN apt-get install -y nodejs
+
+RUN "wget -qO- https://get.docker.io/gpg | apt-key add -"
+
+RUN "echo deb http://get.docker.io/ubuntu docker main /etc/apt/sources.list.d/docker.list"
+
+RUN apt-get update && apt-get install -y curl openjdk-7-jdk unzip linux-image-extra-`uname -r`
+
+RUN apt-get install -y lxc-docker
+
+# NOTE DEFAULT FIREWALL
 
 RUN apt-get update && apt-get install -y wget git curl zip && rm -rf /var/lib/apt/lists/*
 
