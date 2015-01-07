@@ -16,10 +16,6 @@ RUN wget -qO- https://get.docker.io/gpg | apt-key add -
 
 RUN curl -sSL https://get.docker.com/ubuntu/ | sh
 
-ADD wrapdocker /usr/local/bin/wrapdocker
-
-CMD ["wrapdocker"]
-
 COPY docker.default /etc/default/docker
 
 ADD docker.sudo /etc/sudoers.d/docker
