@@ -24,7 +24,7 @@ RUN chmod +x /usr/local/bin/wrapdocker
 
 VOLUME /var/lib/docker
 
-ENV DOCKER_DAEMON_ARGS=--insecure-registry qp6.agileview.co.uk:5000
+ENV DOCKER_DAEMON_ARGS="--insecure-registry qp6.agileview.co.uk:5000"
 
 # Install node
 RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
