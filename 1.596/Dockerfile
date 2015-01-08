@@ -10,11 +10,23 @@ RUN apt-get install -y build-essential curl git unzip wget
 RUN apt-get update && apt-get install -y openjdk-7-jdk 
 
 # Install Docker
+RUN apt-get update && apt-get install -y ca-certificates lxc iptables
+
 RUN curl -sSL https://get.docker.com/ubuntu/ | sh
 
 COPY docker.default /etc/default/docker
 
 ADD docker.sudo /etc/sudoers.d/docker
+
+# Install the magic wrapper.
+
+ADD ./wrapdocker /usr/local/bin/wrapdocker
+
+RUN chmod +x /usr/local/bin/wrapdocker
+
+VOLUME /var/lib/docker
+
+CMD ["wrapdocker"]
 
 # Install node
 RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
