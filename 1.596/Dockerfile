@@ -10,10 +10,6 @@ RUN apt-get install -y build-essential curl git unzip wget
 RUN apt-get update && apt-get install -y openjdk-7-jdk 
 
 # Install Docker
-RUN apt-get update && apt-get install -y python-software-properties lxc ca-certificates
-
-RUN wget -qO- https://get.docker.io/gpg | apt-key add -
-
 RUN curl -sSL https://get.docker.com/ubuntu/ | sh
 
 COPY docker.default /etc/default/docker
@@ -72,3 +68,5 @@ ENTRYPOINT ["/usr/local/bin/jenkins.sh"]
 
 # from a derived Dockerfile, can use `RUN plugin.sh active.txt` to setup /usr/share/jenkins/ref/plugins from a support bundle
 COPY plugins.sh /usr/local/bin/plugins.sh
+
+CMD ["service docker start"]

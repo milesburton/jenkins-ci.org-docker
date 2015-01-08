@@ -1,1 +1,2 @@
 jenkins ALL = NOPASSWD: /usr/bin/docker
+jenkins ALL = NOPASSWD: /usr/sbin/service
