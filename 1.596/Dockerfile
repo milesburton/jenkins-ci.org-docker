@@ -18,15 +18,11 @@ COPY docker.default /etc/default/docker
 
 ADD docker.sudo /etc/sudoers.d/docker
 
-# Install the magic wrapper.
-
 ADD ./wrapdocker /usr/local/bin/wrapdocker
 
 RUN chmod +x /usr/local/bin/wrapdocker
 
 VOLUME /var/lib/docker
-
-CMD ["wrapdocker"]
 
 # Install node
 RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
@@ -73,12 +69,14 @@ EXPOSE 8080
 # will be used by attached slave agents:
 EXPOSE 50000
 
-USER jenkins
-
 COPY jenkins.sh /usr/local/bin/jenkins.sh
-ENTRYPOINT ["/usr/local/bin/jenkins.sh"]
 
 # from a derived Dockerfile, can use `RUN plugin.sh active.txt` to setup /usr/share/jenkins/ref/plugins from a support bundle
 COPY plugins.sh /usr/local/bin/plugins.sh
 
-CMD ["service docker start"]
+#Bootstrap
+COPY bootstrap.sh /usr/local/bin/bootstrap.sh
+
+RUN chmod +x /usr/local/bin/bootstrap.sh 
+
+ENTRYPOINT ["/usr/local/bin/bootstrap.sh"]

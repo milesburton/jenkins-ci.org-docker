@@ -8,6 +8,7 @@ docker rm $JENKINS_DOCKER_CONTAINER
 
 docker build -t $JENKINS_DOCKER_IMAGE .  
 useradd -d "$JENKINS_HOME" -u 9765 -m -s /bin/bash $JENKINS_USER
-docker run --privileged -i -t --name $JENKINS_DOCKER_CONTAINER -p 9090:8080 -v $JENKINS_HOME:$JENKINS_HOME $JENKINS_DOCKER_IMAGE bash
+chown -R $JENKINS_USER $JENKINS_HOME
+docker run -i -t  --privileged --name $JENKINS_DOCKER_CONTAINER -p 9090:8080 -v $JENKINS_HOME:$JENKINS_HOME $JENKINS_DOCKER_IMAGE 
 
 
